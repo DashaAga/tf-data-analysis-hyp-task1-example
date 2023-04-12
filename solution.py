@@ -9,7 +9,12 @@ def solution(x_success: int,
              y_success: int, 
              y_cnt: int) -> bool:
     alpha=0.08
-    control_conv = x_success / x_cnt
-    test_conv = y_success / y_cnt
-    t_stat, p_value = ttest_ind(control_conv, test_conv, equal_var=False)
-    return p_value < alpha
+    ctrl_conv_rate = x_success / x_cnt
+    test_conv_rate = y_success / y_cnt
+
+    t_stat, p_val = ttest_ind([ctrl_conv_rate], [test_conv_rate])
+
+    if p_val/2 < alpha:
+        return True
+    else:
+        return False
